@@ -1,21 +1,26 @@
 buildscript {
     repositories {
         jcenter()
+        google()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.3'
+        classpath 'com.android.tools.build:gradle:3.1.4'
     }
 }
 
 apply plugin: 'com.android.library'
 
+def safeExtGet(prop, fallback) {
+    rootProject.ext.has(prop) ? rootProject.ext.get(prop) : fallback
+}
+
 android {
-    compileSdkVersion 'android-25'
-    buildToolsVersion '25.0.1'
+    compileSdkVersion safeExtGet("compileSdkVersion", 27)
+    buildToolsVersion safeExtGet("buildToolsVersion", '27.0.3')
 
     defaultConfig {
-        minSdkVersion 16
-        targetSdkVersion 22
+        minSdkVersion safeExtGet('minSdkVersion', 16)
+        targetSdkVersion safeExtGet('targetSdkVersion', 26)
     }
 
     buildTypes {
@@ -28,10 +33,14 @@ android {
 
 allprojects {
     repositories {
-        mavenCentral()
+        mavenLocal()
+        jcenter()
+        maven {
+            url "http://files.couchbase.com/maven2/"
+        }
     }
 }
 
 dependencies {
-    compile 'com.facebook.react:react-native:+'
+    implementation "com.facebook.react:react-native:${safeExtGet('reactNativeVersion', '+')}"
 }
