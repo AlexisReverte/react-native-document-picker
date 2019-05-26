@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/Elyx0/react-native-document-picker.git"
+    "url": "git+ssh://git@github.com/AlexisReverte/react-native-document-picker.git"
   },
   "keywords": [
     "document",
